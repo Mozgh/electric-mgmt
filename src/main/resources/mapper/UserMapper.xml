@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaoh.electric.mapper.UserMapper">
+    <resultMap id="UserResultMap" type="User">
+    </resultMap>
+
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user (username, password, name, phone, email, status) values (#{username}, #{password}, #{name}, #{phone}, #{email}, #{status})
+    </insert>
+
+    <update id="updateById" parameterType="User">
+        update t_user
+        set id = #{id}
+        <if test="username != null"> set username = #{username}</if>
+        <if test="name != null"> set name = #{name}</if>
+        <if test="phone != null"> set phone = #{phone}</if>
+        <if test="email != null"> set email = #{email}</if>
+        <if test="status != null"> set status = #{status}</if>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from t_user where id = #{id}
+    </delete>
+
+    <select id="queryUser" resultMap="UserResultMap">
+        select * from t_user <if test="query != null"> where email like #{query} or phone like #{query} or username like #{query} or name like #{query}</if>
+    </select>
+</mapper>
