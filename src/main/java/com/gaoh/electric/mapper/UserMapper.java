@@ -14,8 +14,10 @@ public interface UserMapper {
 
     void updateById(User user);
 
-    void deleteById(@Param("id") String id);
+    void deleteById(@Param("id") int id);
 
     List<User> queryUser(@Param("query") String query);
+
+    User selectById(@Param("id") int id);
 
 }

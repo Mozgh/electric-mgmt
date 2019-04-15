@@ -9,13 +9,13 @@
     </insert>
 
     <update id="updateById" parameterType="User">
-        update t_user
-        set id = #{id}
-        <if test="username != null"> set username = #{username}</if>
-        <if test="name != null"> set name = #{name}</if>
-        <if test="phone != null"> set phone = #{phone}</if>
-        <if test="email != null"> set email = #{email}</if>
-        <if test="status != null"> set status = #{status}</if>
+        update t_user set
+        <if test="username != null">username = #{username},</if>
+        <if test="name != null">name = #{name},</if>
+        <if test="phone != null">phone = #{phone},</if>
+        <if test="email != null">email = #{email},</if>
+        <if test="status != null">status = #{status},</if>
+        id = #{id}
         where id = #{id}
     </update>
 
@@ -25,5 +25,9 @@
 
     <select id="queryUser" resultMap="UserResultMap">
         select * from t_user <if test="query != null"> where email like #{query} or phone like #{query} or username like #{query} or name like #{query}</if>
+    </select>
+
+    <select id="selectById" resultMap="UserResultMap">
+        select * from t_user where id = #{id}
     </select>
 </mapper>

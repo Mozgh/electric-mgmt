@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class UserService {
@@ -21,6 +23,53 @@ public class UserService {
             } else {
                 throw new Exception("user name can not be null");
             }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    public void updateUser(Integer id, User user) throws Exception {
+        try {
+            if (id == null) {
+                throw new Exception("id is null");
+            }
+            User userExist = userMapper.selectById(id);
+
+            if (userExist != null) {
+                user.setId(userExist.getId());
+                userMapper.updateById(user);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    public void deleteUser(Integer id) throws Exception {
+        try {
+            if (id == null) {
+                throw new Exception("id is null");
+            }
+            User user = userMapper.selectById(id);
+
+            if (user != null) {
+                userMapper.deleteById(id);
+            } else {
+                throw new Exception("user does not exist");
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw e;
+        }
+    }
+
+    public List<User> queryUser(String query) {
+        try {
+            if (query == null) {
+                query = "";
+            }
+            return userMapper.queryUser("%" + query + "%");
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw e;
