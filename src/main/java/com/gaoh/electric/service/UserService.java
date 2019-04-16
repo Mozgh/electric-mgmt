@@ -18,7 +18,7 @@ public class UserService {
     public int createUser(User user) throws Exception {
         try {
             if (user.getUsername() != null && user.getName() != null) {
-                userMapper.insert(user);
+                userMapper.insertUser(user);
                 return user.getId();
             } else {
                 throw new Exception("user name can not be null");
@@ -34,11 +34,11 @@ public class UserService {
             if (id == null) {
                 throw new Exception("id is null");
             }
-            User userExist = userMapper.selectById(id);
+            User userExist = userMapper.selectUserById(id);
 
             if (userExist != null) {
                 user.setId(userExist.getId());
-                userMapper.updateById(user);
+                userMapper.updateUserById(user);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -51,10 +51,10 @@ public class UserService {
             if (id == null) {
                 throw new Exception("id is null");
             }
-            User user = userMapper.selectById(id);
+            User user = userMapper.selectUserById(id);
 
             if (user != null) {
-                userMapper.deleteById(id);
+                userMapper.deleteUserById(id);
             } else {
                 throw new Exception("user does not exist");
             }

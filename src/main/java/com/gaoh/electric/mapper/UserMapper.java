@@ -10,14 +10,14 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    int insert(User user);
+    int insertUser(User user);
 
-    void updateById(User user);
+    void updateUserById(User user);
 
-    void deleteById(@Param("id") int id);
+    void deleteUserById(@Param("id") int id);
 
     List<User> queryUser(@Param("query") String query);
 
-    User selectById(@Param("id") int id);
+    User selectUserById(@Param("id") int id);
 
 }

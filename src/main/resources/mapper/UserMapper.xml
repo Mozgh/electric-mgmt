@@ -4,11 +4,11 @@
     <resultMap id="UserResultMap" type="User">
     </resultMap>
 
-    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
         insert into t_user (username, password, name, phone, email, status) values (#{username}, #{password}, #{name}, #{phone}, #{email}, #{status})
     </insert>
 
-    <update id="updateById" parameterType="User">
+    <update id="updateUserById" parameterType="User">
         update t_user set
         <if test="username != null">username = #{username},</if>
         <if test="name != null">name = #{name},</if>
@@ -19,7 +19,7 @@
         where id = #{id}
     </update>
 
-    <delete id="deleteById">
+    <delete id="deleteUserById">
         delete from t_user where id = #{id}
     </delete>
 
@@ -27,7 +27,7 @@
         select * from t_user <if test="query != null"> where email like #{query} or phone like #{query} or username like #{query} or name like #{query}</if>
     </select>
 
-    <select id="selectById" resultMap="UserResultMap">
+    <select id="selectUserById" resultMap="UserResultMap">
         select * from t_user where id = #{id}
     </select>
 </mapper>
