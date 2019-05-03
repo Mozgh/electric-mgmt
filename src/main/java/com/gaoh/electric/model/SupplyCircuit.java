@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SupplyCricuit {
+public class SupplyCircuit {
 
     private Integer id;
 

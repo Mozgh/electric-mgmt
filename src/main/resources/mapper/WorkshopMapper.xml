@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaoh.electric.mapper.WorkshopMapper">
+    <resultMap id="WorkshopResultMap" type="Workshop">
+    </resultMap>
+
+    <insert id="insertWorkshop" useGeneratedKeys="true" keyProperty="id">
+        insert into t_workshop(factoryId, name, description, status) value (#{factoryId}, #{name}, #{description}, #{status})
+    </insert>
+
+    <update id="updateWorkshopById" parameterType="Workshop">
+        update t_workshop
+        set
+        <if test="name != null"> name = #{name},</if>
+        <if test="description != null"> description = #{description},</if>
+        <if test="status != null"> status = #{status},</if>
+        id = #{id}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWorkshopById">
+        delete from t_workshop where id = #{id}
+    </delete>
+
+    <select id="selectByWid" resultMap="WorkshopResultMap">
+        select * from t_workshop where id = #{wid}
+    </select>
+
+    <select id="selectByFidAndWid" resultMap="WorkshopResultMap">
+        select * from t_workshop where id = #{wid} and factoryId = #{fid}
+    </select>
+
+    <select id="selectByFactoryId" resultMap="WorkshopResultMap">
+        select * from t_workshop where factoryId = #{factoryId}
+    </select>
+</mapper>
