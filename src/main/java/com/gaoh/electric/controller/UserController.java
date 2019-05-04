@@ -16,6 +16,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("/auth")
+    public ResponseDto<Boolean> auth(@RequestBody User user) {
+        try {
+            return ResponseDto.<Boolean>builder().code(ResponseDto.SUCCESS_CODE).res(userService.checkUser(user.getUsername(), user.getPassword())).build();
+        } catch (Exception e) {
+            return ResponseDto.<Boolean>builder().code(ResponseDto.FAILED_CODE).error(e.getMessage()).build();
+        }
+    }
+
     @PostMapping("/user")
     public ResponseDto<Integer> createUser(@RequestBody User user) {
         try {

@@ -5,6 +5,7 @@ import com.gaoh.electric.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -74,5 +75,14 @@ public class UserService {
             log.error(e.getMessage(), e);
             throw e;
         }
+    }
+
+    public boolean checkUser(String username, String password) throws Exception {
+        List<User> users = userMapper.selectUserByUsername(username);
+        if (users == null) {
+            throw new Exception("user does not exist");
+        }
+        User user = users.get(0);
+        return user.getPassword().equals(password);
     }
 }

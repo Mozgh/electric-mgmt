@@ -30,4 +30,8 @@
     <select id="selectUserById" resultMap="UserResultMap">
         select * from t_user where id = #{id}
     </select>
+
+    <select id="selectUserByUsername" resultMap="UserResultMap">
+        select * from t_user where username = #{username}
+    </select>
 </mapper>
