@@ -11,15 +11,15 @@ public class ElectricData {
 
     private Integer id;
 
-    private Integer cricuitId;
+    private Integer circuitId;
 
-    private Double electrictyA;
+    private Double electricityA;
     private Double voltageA;
 
-    private Double electrictyB;
+    private Double electricityB;
     private Double voltageB;
 
-    private Double electrictyC;
+    private Double electricityC;
     private Double voltageC;
 
     private Double activePower;
