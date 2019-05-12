@@ -2,17 +2,17 @@ create table t_electric_data
 (
   id             int auto_increment
     primary key,
-  cricuitId      int      null,
-  electrictyA    double   null,
-  electrictyB    double   null,
-  electrictyC    double   null,
+  circuitId      int      null,
+  electricityA    double   null,
+  electricityB    double   null,
+  electricityC    double   null,
   voltageA       double   null,
   voltageB       double   null,
   voltageC       double   null,
   activePower    double   null,
   reactivePower  double   null,
-  apperantPower  double   null,
-  powerRactor    double   null,
+  apparentPower  double   null,
+  powerFactor    double   null,
   electricEnergy double   null,
   time           datetime null
 );

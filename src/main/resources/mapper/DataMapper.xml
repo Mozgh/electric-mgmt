@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaoh.electric.mapper.DataMapper">
+    
+    <resultMap id="dataResultMap" type="com.gaoh.electric.model.ElectricData">
+        
+    </resultMap>
+    
+    <insert id="saveDataBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into t_electric_data (circuitId, electricityA, electricityB, electricityC, voltageA, voltageB, voltageC, activePower, reactivePower, apparentPower, powerFactor, electricEnergy, time)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.circuitId}, #{item.electricityA}, #{item.electricityB}, #{item.electricityC},
+            #{item.voltageA},
+            #{item.voltageB}, #{item.voltageC}, #{item.activePower},
+            #{item.reactivePower},
+            #{item.apparentPower}, #{item.powerFactor}, #{item.electricEnergy},
+            #{item.time})
+        </foreach>
+    </insert>
+
+    <select id="selectDataByCid" resultMap="dataResultMap">
+        select * from t_electric_data where circuitId = #{cid} and `date` &gt;= #{start} and `date` &lt;= #{end}
+    </select>
+</mapper>

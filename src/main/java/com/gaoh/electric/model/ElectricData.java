@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.sql.Time;
 
 @Getter
 @Setter
@@ -26,13 +27,12 @@ public class ElectricData {
 
     private Double reactivePower;
 
-    private Double apperantPower;
+    private Double apparentPower;
 
-    private Double powerRactor;
+    private Double powerFactor;
 
     private Double electricEnergy;
 
     private Date time;
-
 
 }

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gaoh.electric.mapper.SupplyCircuitMapper">
-    <resultMap id="SupplyCircuitResultMap" type="SupplyCircuit">
+    <resultMap id="SupplyCircuitResultMap" type="com.gaoh.electric.model.SupplyCircuit">
 
     </resultMap>
 
     <select id="selectByCid" resultMap="SupplyCircuitResultMap">
-        select * from t_supply_circuit where id = #{cid}
+        select * from t_supply_cricuit where id = #{cid}
     </select>
 
     <select id="selectByWorkshopId" resultMap="SupplyCircuitResultMap">
-        select * from t_supply_circuit where workshopId = #{workshopId}
+        select * from t_supply_cricuit where workshopId = #{workshopId}
     </select>
 
     <select id="selectByWorkshopIdAndName" resultMap="SupplyCircuitResultMap">
-        select * from t_supply_circuit where workshopId = #{workshopId} and name = #{name}
+        select * from t_supply_cricuit where workshopId = #{workshopId} and name = #{name}
     </select>
 
     <insert id="insertCircuit" useGeneratedKeys="true" keyProperty="id">
-        insert into t_supply_circuit(workshopId, name) values (#{workshopId}, #{name})
+        insert into t_supply_cricuit(workshopId, name) values (#{workshopId}, #{name})
     </insert>
 
     <update id="updateName">
-        update t_supply_circuit set name = #{name} where id = #{circuitId}
+        update t_supply_cricuit set name = #{name} where id = #{circuitId}
     </update>
 
     <delete id="deleteByCid">
-        delete from t_supply_circuit where id = #{cid}
+        delete from t_supply_cricuit where id = #{cid}
     </delete>
 
     <delete id="deleteByWorkshopId">
-        delete from t_supply_circuit where workshopId = #{workshopId}
+        delete from t_supply_cricuit where workshopId = #{workshopId}
     </delete>
 
 </mapper>

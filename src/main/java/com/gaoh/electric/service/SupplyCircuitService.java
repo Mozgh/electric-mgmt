@@ -1,5 +1,6 @@
 package com.gaoh.electric.service;
 
+import com.gaoh.electric.mapper.DataMapper;
 import com.gaoh.electric.mapper.SupplyCircuitMapper;
 import com.gaoh.electric.mapper.WorkshopMapper;
 import com.gaoh.electric.model.SupplyCircuit;
@@ -18,6 +19,10 @@ public class SupplyCircuitService {
 
     @Autowired
     private WorkshopMapper workshopMapper;
+
+    public SupplyCircuit findById(int cid) {
+        return supplyCircuitMapper.selectByCid(cid);
+    }
 
     public int insertCircuit(int workshopId, String name) throws Exception {
         Workshop workshop = workshopMapper.selectByWid(workshopId);

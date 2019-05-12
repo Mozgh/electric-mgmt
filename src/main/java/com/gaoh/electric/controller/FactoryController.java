@@ -1,5 +1,6 @@
 package com.gaoh.electric.controller;
 
+import com.gaoh.electric.dto.FactoryDto;
 import com.gaoh.electric.dto.ResponseDto;
 import com.gaoh.electric.model.Factory;
 import com.gaoh.electric.service.FactoryService;
@@ -44,11 +45,11 @@ public class FactoryController {
     }
 
     @GetMapping("/factory")
-    public ResponseDto<List<Factory>> queryFactory(@RequestParam(value = "query", required = false) String query) {
+    public ResponseDto<List<FactoryDto>> queryFactory(@RequestParam(value = "query", required = false) String query) {
         try {
-            return ResponseDto.<List<Factory>>builder().code(ResponseDto.SUCCESS_CODE).res(factoryService.listFactory(query)).build();
+            return ResponseDto.<List<FactoryDto>>builder().code(ResponseDto.SUCCESS_CODE).res(factoryService.listFactory(query)).build();
         } catch (Exception e) {
-            return ResponseDto.<List<Factory>>builder().code(ResponseDto.FAILED_CODE).error(e.getMessage()).build();
+            return ResponseDto.<List<FactoryDto>>builder().code(ResponseDto.FAILED_CODE).error(e.getMessage()).build();
         }
     }
 

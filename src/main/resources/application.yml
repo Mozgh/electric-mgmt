@@ -9,6 +9,7 @@ spring:
       minimum-idle: 5
       maximum-pool-size: 15
       connection-test-query: select 1111
+      max-lifetime: 30000
     name: electric
   flyway:
     schemas: ${spring.datasource.name}
@@ -18,6 +19,9 @@ spring:
     baseline-on-migrate: false
   profiles:
     active: dev
+  servlet:
+    multipart:
+      max-file-size: 100MB
 server:
   port: 8080
 

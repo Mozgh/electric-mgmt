@@ -7,7 +7,9 @@ import com.gaoh.electric.model.Factory;
 import com.gaoh.electric.model.Workshop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +20,9 @@ public class WorkshopService {
 
     @Autowired
     private FactoryMapper factoryMapper;
+
+    @Autowired
+    private SupplyCircuitService supplyCircuitService;
 
     public int createWorkshop(int factoryId, WorkshopDto workshopDto) throws Exception {
         Factory factory = factoryMapper.selectFactoryById(factoryId);
@@ -67,11 +72,22 @@ public class WorkshopService {
     public void deleteByFactory(int factoryId) throws Exception {
 
     }
-    public List<Workshop> selectByFactoryId(int factoryId) throws Exception {
+
+    public List<WorkshopDto> selectByFactoryId(int factoryId) throws Exception {
+        List<WorkshopDto> workshopDtos = new ArrayList<>();
         if (factoryMapper.selectFactoryById(factoryId) == null) {
             throw new Exception("The factory does not exist");
         }
-        return workshopMapper.selectByFactoryId(factoryId);
+        List<Workshop> workshops = workshopMapper.selectByFactoryId(factoryId);
+        if (CollectionUtils.isEmpty(workshops)) {
+            return new ArrayList<>();
+        }
+        for (Workshop workshop : workshops) {
+            WorkshopDto workshopDto = new WorkshopDto(workshop);
+            workshopDto.setCircuits(supplyCircuitService.listByWorkshop(workshop.getId()));
+            workshopDtos.add(workshopDto);
+        }
+        return workshopDtos;
     }
 
     public Workshop selectById(int id) {
