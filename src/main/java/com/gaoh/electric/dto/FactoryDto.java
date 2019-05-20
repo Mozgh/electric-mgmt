@@ -1,7 +1,6 @@
 package com.gaoh.electric.dto;
 
 import com.gaoh.electric.model.Factory;
-import com.gaoh.electric.model.Workshop;
 import lombok.Getter;
 import lombok.Setter;
 

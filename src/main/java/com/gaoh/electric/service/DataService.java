@@ -69,7 +69,7 @@ public class DataService {
 
     }
 
-    public List<ElectricData> listElectricData(int cid, long start, long end) throws Exception {
+    public List<ElectricData> listElectricData(int cid, String phase, long start, long end) throws Exception {
         if(supplyCircuitService.findById(cid) == null) {
             throw new Exception("circuit does not exist!");
         }

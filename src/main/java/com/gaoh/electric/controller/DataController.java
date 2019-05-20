@@ -65,10 +65,10 @@ public class DataController {
         }
     }
 
-    @GetMapping("/circuit/{cid}/data")
-    public ResponseDto<List<ElectricData>> queryData(@PathVariable(value = "cid") Integer cid, @RequestParam("start") Long start, @RequestParam("end") Long end) {
+    @GetMapping("/circuit/{cid}/data/{phase}")
+    public ResponseDto<List<ElectricData>> queryData(@PathVariable(value = "cid") Integer cid, @PathVariable(value = "phase") String phase, @RequestParam("start") Long start, @RequestParam("end") Long end) {
         try {
-            return ResponseDto.<List<ElectricData>>builder().code(ResponseDto.SUCCESS_CODE).res(dataService.listElectricData(cid, start, end)).build();
+            return ResponseDto.<List<ElectricData>>builder().code(ResponseDto.SUCCESS_CODE).res(dataService.listElectricData(cid, phase, start, end)).build();
         } catch (Exception e) {
             return ResponseDto.<List<ElectricData>>builder().code(ResponseDto.FAILED_CODE).error(e.getMessage()).build();
         }
