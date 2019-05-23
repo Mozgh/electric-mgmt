@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -33,6 +34,6 @@ public class ElectricData {
 
     private Double electricEnergy;
 
-    private Date time;
+    private Timestamp time;
 
 }

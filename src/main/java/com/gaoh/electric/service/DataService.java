@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class DataService {
             data.setElectricityB(row.getCell(7).getNumericCellValue());
             data.setVoltageC(row.getCell(9).getNumericCellValue());
             data.setElectricityC(row.getCell(11).getNumericCellValue());
-            data.setTime(new Date(formatDate(row.getCell(0).getStringCellValue())));
+            data.setTime(new Timestamp(formatDate(row.getCell(0).getStringCellValue())));
             return data;
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -69,11 +70,11 @@ public class DataService {
 
     }
 
-    public List<ElectricData> listElectricData(int cid, String phase, long start, long end) throws Exception {
+    public List<ElectricData> listElectricData(int cid, String phase, String start, String end) throws Exception {
         if(supplyCircuitService.findById(cid) == null) {
             throw new Exception("circuit does not exist!");
         }
-        return dataMapper.selectDataByCid(cid, new Date(start), new Date(end));
+        return dataMapper.selectDataByCid(cid, start, end);
     }
 
     private Long formatDate(String date) {

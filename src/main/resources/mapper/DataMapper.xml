@@ -20,6 +20,6 @@
     </insert>
 
     <select id="selectDataByCid" resultMap="dataResultMap">
-        select * from t_electric_data where circuitId = #{cid} and `date` &gt;= #{start} and `date` &lt;= #{end}
+        select * from t_electric_data where circuitId = #{cid} and `time` &gt;= #{start} and `time` &lt;= #{end}
     </select>
 </mapper>
