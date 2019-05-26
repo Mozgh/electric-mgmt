@@ -11,6 +11,8 @@ import java.util.List;
 @Setter
 public class WorkshopDto {
 
+    private int id;
+
     private String name;
 
     private String description;
@@ -20,6 +22,7 @@ public class WorkshopDto {
     private List<SupplyCircuit> circuits;
 
     public WorkshopDto(Workshop workshop) {
+        this.id = workshop.getId();
         this.name = workshop.getName();
         this.description = workshop.getDescription();
     }
