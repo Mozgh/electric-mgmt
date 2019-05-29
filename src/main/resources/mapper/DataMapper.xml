@@ -7,14 +7,24 @@
     </resultMap>
     
     <insert id="saveDataBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
-        insert into t_electric_data (circuitId, electricityA, electricityB, electricityC, voltageA, voltageB, voltageC, activePower, reactivePower, apparentPower, powerFactor, electricEnergy, time)
+        insert into t_electric_data
+        (circuitId,
+        electricityA, electricityB, electricityC,
+        voltageA, voltageB, voltageC,
+        activePowerA,activePowerB,activePowerC,
+        reactivePowerA,reactivePowerB,reactivePowerC,
+        apparentPowerA,apparentPowerB,apparentPowerC,
+        factorA,factorB,factorC,
+        time)
         values
         <foreach collection="list" item="item" separator=",">
-            (#{item.circuitId}, #{item.electricityA}, #{item.electricityB}, #{item.electricityC},
-            #{item.voltageA},
-            #{item.voltageB}, #{item.voltageC}, #{item.activePower},
-            #{item.reactivePower},
-            #{item.apparentPower}, #{item.powerFactor}, #{item.electricEnergy},
+            (#{item.circuitId},
+            #{item.electricityA}, #{item.electricityB}, #{item.electricityC},
+            #{item.voltageA},#{item.voltageB}, #{item.voltageC},
+            #{item.activePowerA},#{item.activePowerB},#{item.activePowerC},
+            #{item.reactivePowerA},#{item.reactivePowerB},#{item.reactivePowerC},
+            #{item.apparentPowerA},#{item.apparentPowerB},#{item.apparentPowerC},
+            #{item.factorA},#{item.factorB},#{item.factorC},
             #{item.time})
         </foreach>
     </insert>

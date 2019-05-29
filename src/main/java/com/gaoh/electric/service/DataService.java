@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -42,11 +44,15 @@ public class DataService {
                 ElectricData data = buildDataInRow(sheet.getRow(i));
                 if (data != null) {
                     data.setCircuitId(circuitId);
+                    calculate(data);
                     datas.add(data);
+                }
+                if (datas.size() >= 1000) {
+                    dataMapper.saveDataBatch(datas);
+                    datas.clear();
                 }
             }
 
-            dataMapper.saveDataBatch(datas);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -57,10 +63,13 @@ public class DataService {
             ElectricData data = new ElectricData();
             data.setVoltageA(row.getCell(1).getNumericCellValue());
             data.setElectricityA(row.getCell(3).getNumericCellValue());
-            data.setVoltageB(row.getCell(5).getNumericCellValue());
-            data.setElectricityB(row.getCell(7).getNumericCellValue());
-            data.setVoltageC(row.getCell(9).getNumericCellValue());
-            data.setElectricityC(row.getCell(11).getNumericCellValue());
+            data.setFactorA(row.getCell(5).getNumericCellValue());
+            data.setVoltageB(row.getCell(7).getNumericCellValue());
+            data.setElectricityB(row.getCell(9).getNumericCellValue());
+            data.setFactorB(row.getCell(11).getNumericCellValue());
+            data.setVoltageC(row.getCell(13).getNumericCellValue());
+            data.setElectricityC(row.getCell(15).getNumericCellValue());
+            data.setFactorC(row.getCell(17).getNumericCellValue());
             data.setTime(new Timestamp(formatDate(row.getCell(0).getStringCellValue())));
             return data;
         } catch (Exception e) {
@@ -88,7 +97,41 @@ public class DataService {
     }
 
     private void calculate(ElectricData data) {
+        data.setActivePowerA(calcActivePower(data.getElectricityA(), data.getVoltageA(), data.getFactorA()));
+        data.setReactivePowerA(calcReactivePower(data.getElectricityA(), data.getVoltageA(), data.getFactorA()));
+        data.setApparentPowerA(calcApparentPower(data.getElectricityA(), data.getVoltageA()));
 
+        data.setActivePowerB(calcActivePower(data.getElectricityB(), data.getVoltageB(), data.getFactorB()));
+        data.setReactivePowerB(calcReactivePower(data.getElectricityB(), data.getVoltageB(), data.getFactorB()));
+        data.setApparentPowerB(calcApparentPower(data.getElectricityB(), data.getVoltageB()));
+
+        data.setActivePowerC(calcActivePower(data.getElectricityC(), data.getVoltageC(), data.getFactorC()));
+        data.setReactivePowerC(calcReactivePower(data.getElectricityC(), data.getVoltageC(), data.getFactorC()));
+        data.setApparentPowerC(calcApparentPower(data.getElectricityC(), data.getVoltageC()));
+    }
+
+    private double calcActivePower(Double electricity, Double voltage, Double factor) {
+        if (electricity == null || voltage == null || factor == null) {
+            return 0;
+        } else {
+            return new BigDecimal(electricity * voltage * Math.cos(factor) / 1000).setScale(4, RoundingMode.HALF_UP).doubleValue();
+        }
+    }
+
+    private double calcReactivePower(Double electricity, Double voltage, Double factor) {
+        if (electricity == null || voltage == null || factor == null) {
+            return 0;
+        } else {
+            return new BigDecimal(electricity * voltage * Math.sin(factor) / 1000).setScale(4, RoundingMode.HALF_UP).doubleValue();
+        }
+    }
+
+    private double calcApparentPower(Double electricity, Double voltage) {
+        if (electricity == null || voltage == null) {
+            return 0;
+        } else {
+            return new BigDecimal(electricity * voltage / 1000).setScale(4, RoundingMode.HALF_UP).doubleValue();
+        }
     }
 
 }

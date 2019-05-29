@@ -17,22 +17,24 @@ public class ElectricData {
 
     private Double electricityA;
     private Double voltageA;
+    private Double factorA;
+    private Double activePowerA;
+    private Double reactivePowerA;
+    private Double apparentPowerA;
 
     private Double electricityB;
     private Double voltageB;
+    private Double factorB;
+    private Double activePowerB;
+    private Double reactivePowerB;
+        private Double apparentPowerB;
 
     private Double electricityC;
     private Double voltageC;
-
-    private Double activePower;
-
-    private Double reactivePower;
-
-    private Double apparentPower;
-
-    private Double powerFactor;
-
-    private Double electricEnergy;
+    private Double factorC;
+    private Double activePowerC;
+    private Double reactivePowerC;
+    private Double apparentPowerC;
 
     private Timestamp time;
 
